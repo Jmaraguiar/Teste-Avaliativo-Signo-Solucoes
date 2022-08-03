@@ -1,27 +1,19 @@
-import { Enquete } from "../controller/interfaces/EnqueteInterface"
+import { Enquete, Options, OptionsArray } from "../controller/interfaces/EnqueteInterface"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class EnqueteDatabase extends BaseDatabase {
-    inserirEnquete = async (input: Enquete, id: string)=>{
+    inserirEnquete = async (input: Enquete, options: OptionsArray, id: string)=>{
         try {
-            const {title,startDate,endDate,options} = input
+            const {title,startDate,endDate} = input
             await BaseDatabase.connection("Enquetes")
             .insert({
                 id,
                 title,
                 startDate,
-                endDate
-            }).then(()=>{
-                options.map( async (item)=>{
-                    await BaseDatabase.connection("Enquete_options")
-                    .insert({
-                        enqueteID: id,
-                        option: item
-                    })
-                })
+                endDate,
+                options: JSON.stringify(options)
             })
 
-            console.log("cheguei aqui")
         } catch (error: any) {
             throw new Error(error.sqlMessage); 
         }
@@ -29,7 +21,11 @@ export class EnqueteDatabase extends BaseDatabase {
 
     pegarEnquetes = async ()=>{
         try {
-            
+           const enquetes = await BaseDatabase.connection("Enquetes")
+           .select("*")
+
+           return enquetes
+
         } catch (error: any) {
             throw new Error(error.sqlMessage); 
         }
