@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { EnqueteBusiness } from "../business/EnqueteBusiness";
-import { Enquete } from "./interfaces/EnqueteInterface";
+import { Enquete, Options } from "./interfaces/EnqueteInterface";
 
 export class EnqueteController {
     constructor(
@@ -28,9 +28,12 @@ export class EnqueteController {
 
     pegarEnquetes = async (req: Request, res: Response)=>{
         try {
-            
+
+        const enquetes = await this.enqueteBusiness.pegarEnquetes()
+        res.status(200).send({enquetes,message: "Enquetes encontradas com sucesso"})
+
         } catch (error: any) {
-            
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 
