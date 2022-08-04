@@ -37,6 +37,17 @@ export class EnqueteController {
         }
     }
 
+    pegarEnquetePorId = async (req: Request, res: Response)=>{
+        try {
+        const id = String(req.params.id)
+        const enquete = await this.enqueteBusiness.pegarEnquetePorId(id)
+        res.status(200).send({enquete,message: "Enquetes encontradas com sucesso"})
+
+        } catch (error: any) {
+            res.status(error.statusCode || 500).send(error.message)
+        }
+    }
+
     votarEnquete = async (req: Request, res: Response)=>{
         try {
 

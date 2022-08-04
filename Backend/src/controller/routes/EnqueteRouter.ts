@@ -19,6 +19,8 @@ enqueteRouter.put("/vote/:id", enqueteController.votarEnquete)
 
 enqueteRouter.get("/getAll", enqueteController.pegarEnquetes)
 
+enqueteRouter.get("/getEnquete/:id", enqueteController.pegarEnquetePorId)
+
 
 
 

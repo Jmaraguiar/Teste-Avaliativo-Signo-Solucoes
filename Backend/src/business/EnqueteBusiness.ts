@@ -51,10 +51,26 @@ export class EnqueteBusiness {
                 title: enquete.title,
                 startDate: new Date(enquete.startDate).toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }),
                 endDate: new Date(enquete.endDate).toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }),
-                options: JSON.parse(enquete.options),
                 totalVotes: enquete.totalVotes
             }
         })
+        return treatedEnquetes
+    }
+
+    pegarEnquetePorId = async (id:string)=>{
+        const enquete = await this.enqueteDatabase.pegarEnquetePorID(id)
+        if(!enquete){
+            throw new CustomError(500,"Erro ao pegar as enquetes");
+        }
+
+        const treatedEnquetes = {
+                id: enquete.id,
+                title: enquete.title,
+                startDate: enquete.startDate,
+                endDate: enquete.endDate,
+                options: JSON.parse(enquete.options),
+                totalVotes: enquete.totalVotes  
+        }
         return treatedEnquetes
     }
 
