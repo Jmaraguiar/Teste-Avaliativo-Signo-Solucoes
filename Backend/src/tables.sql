@@ -2,8 +2,8 @@
 CREATE TABLE Enquetes (
     id VARCHAR(255) PRIMARY KEY NOT NULL,
     title VARCHAR(255) NOT NULL,
-    startDate DATE NOT NULL,
-    endDate DATE NOT NULL,
+    startDate DATETIME NOT NULL,
+    endDate DATETIME NOT NULL,
     options VARCHAR(10000) NOT NULL,
     totalVotes INT DEFAULT(0)
 );

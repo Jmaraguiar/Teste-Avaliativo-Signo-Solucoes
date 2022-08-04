@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { EnqueteBusiness } from "../business/EnqueteBusiness";
-import { Enquete, Options } from "./interfaces/EnqueteInterface";
+import { Enquete} from "./interfaces/EnqueteInterface";
 
 export class EnqueteController {
     constructor(
@@ -30,7 +30,7 @@ export class EnqueteController {
         try {
 
         const enquetes = await this.enqueteBusiness.pegarEnquetes()
-        res.status(200).send({enquetes,message: "Enquetes encontradas com sucesso"})
+        res.status(200).send({enquetes,message: "Enquetes retornadas com sucesso"})
 
         } catch (error: any) {
             res.status(error.statusCode || 500).send(error.message)
@@ -39,9 +39,16 @@ export class EnqueteController {
 
     votarEnquete = async (req: Request, res: Response)=>{
         try {
-            
+
+            const id = String(req.params.id)
+            const vote = String(req.query.vote)
+            await this.enqueteBusiness.votarEnquete(id,vote)
+        
+            res.status(200).send({message: "voto armazenado com sucesso"})
+
+
         } catch (error: any) {
-            
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 }

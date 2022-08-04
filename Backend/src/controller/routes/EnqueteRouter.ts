@@ -15,7 +15,7 @@ const enqueteController = new EnqueteController(enqueteBusiness)
 
 enqueteRouter.post("/create", enqueteController.criarEnquete)
 
-enqueteRouter.put("/vote", enqueteController.votarEnquete)
+enqueteRouter.put("/vote/:id", enqueteController.votarEnquete)
 
 enqueteRouter.get("/getAll", enqueteController.pegarEnquetes)
 
