@@ -1,4 +1,4 @@
-import { Enquete, Options, OptionsArray } from "../controller/interfaces/EnqueteInterface"
+import { Enquete, EnqueteDbDTO, Options, OptionsArray } from "../controller/interfaces/EnqueteInterface"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class EnqueteDatabase extends BaseDatabase {
@@ -24,15 +24,33 @@ export class EnqueteDatabase extends BaseDatabase {
            const enquetes = await BaseDatabase.connection("Enquetes")
            .select("*")
 
-           return enquetes
+           return enquetes 
 
         } catch (error: any) {
             throw new Error(error.sqlMessage); 
         }
     }
 
-    votarEnquete = async ()=>{
+    pegarEnquetePorID = async (id: string):Promise<EnqueteDbDTO>=>{
         try {
+
+            const enquete = await BaseDatabase.connection("Enquetes")
+            .select("*")
+            .where({id})
+
+            return enquete && enquete[0]
+            
+        } catch (error: any) {
+            throw new Error(error.sqlMessage); 
+        }
+    }
+
+    votarEnquete = async (id: string,enquete: EnqueteDbDTO)=>{
+        try {
+            const {options,totalVotes} = enquete
+            await BaseDatabase.connection("Enquetes")
+            .update({options: JSON.stringify(options),totalVotes})
+            .where({id})
             
         } catch (error: any) {
             throw new Error(error.sqlMessage); 
