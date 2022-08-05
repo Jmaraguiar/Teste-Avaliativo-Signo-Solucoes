@@ -58,9 +58,26 @@ export class EnqueteBusiness {
     }
 
     pegarEnquetePorId = async (id:string)=>{
+
+        if(!id){
+            throw new CustomError(400,"Faltando o id");
+        }
+
         const enquete = await this.enqueteDatabase.pegarEnquetePorID(id)
+
         if(!enquete){
             throw new CustomError(500,"Erro ao pegar as enquetes");
+        }
+
+        let status = ""
+        const today = new Date(Date.now())
+
+        if(today > enquete.startDate && today < enquete.endDate){
+            status = "Em Andamento"
+        }else if(today < enquete.startDate){
+            status = "Não Iniciada"
+        }else{
+            status = "Finalizada"
         }
 
         const treatedEnquetes = {
@@ -69,7 +86,9 @@ export class EnqueteBusiness {
                 startDate: enquete.startDate,
                 endDate: enquete.endDate,
                 options: JSON.parse(enquete.options),
-                totalVotes: enquete.totalVotes  
+                totalVotes: enquete.totalVotes,
+                status: status  
+
         }
         return treatedEnquetes
     }
