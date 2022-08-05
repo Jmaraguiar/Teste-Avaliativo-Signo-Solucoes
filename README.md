@@ -1,6 +1,6 @@
 # Avaliação Signo Soluções web
 
-## Isntruções de instalação 
+## Instruções de instalação 
 
 ### backend
 
