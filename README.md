@@ -6,9 +6,9 @@
 
 ### frontend
 
-### tecnologias utilizadas
+## tecnologias utilizadas
 
-### Links da Aplicação Postada
+## Links da Aplicação Postada
 - Link Heroku: https://testesignoweb.herokuapp.com/
 - Link do Surge: https://testesignosolucoesweb.surge.sh/
 
