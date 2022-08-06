@@ -31,6 +31,6 @@
 
 ## Links da Aplicação Postada na web
 
-- Link Heroku: https://testesignoweb.herokuapp.com/
-- Link do Surge: https://testesignosolucoesweb.surge.sh/
+- Link Heroku (Back-end): https://testesignoweb.herokuapp.com/
+- Link do Surge (Front-end): https://testesignosolucoesweb.surge.sh/
 
